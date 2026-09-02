@@ -1,0 +1,62 @@
+# ============================================================================
+# Blueprint de Render para SIMCO
+#
+# Render lee este archivo al crear el servicio (Blueprint / render.yaml).
+# Los valores marcados con sync:false NO se guardan aquí: se introducen en el
+# panel de Render, porque son credenciales.
+#
+# La base de datos NO se crea aquí: ya existe y la administra otro equipo.
+# El servicio solo necesita poder alcanzarla desde internet.
+# ============================================================================
+services:
+  - type: web
+    name: simco
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: starter          # 'free' no admite discos persistentes
+    region: oregon
+    healthCheckPath: /
+
+    # Los adjuntos se guardan en disco. Sin este bloque el directorio es
+    # EFIMERO y se vacia en cada despliegue, perdiendo los archivos que los
+    # usuarios adjuntaron a sus PQRSF.
+    disk:
+      name: anexos
+      mountPath: /var/www/html/public_html/Anexos
+      sizeGB: 5
+
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: APP_DEBUG
+        value: "false"
+
+      # Base de datos existente de la clínica
+      - key: DB_HOST
+        sync: false
+      - key: DB_PORT
+        value: "5432"
+      - key: DB_DATABASE
+        sync: false
+      - key: DB_USERNAME
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+
+      # Correo saliente
+      - key: MAIL_MAILER
+        value: smtp
+      - key: MAIL_HOST
+        sync: false
+      - key: MAIL_PORT
+        value: "587"
+      - key: MAIL_USERNAME
+        sync: false
+      - key: MAIL_PASSWORD
+        sync: false
+      - key: MAIL_ENCRYPTION
+        value: tls
+      - key: MAIL_FROM_ADDRESS
+        sync: false
+      - key: MAIL_FROM_NAME
+        value: SIMCO - Sistema de PQRSF

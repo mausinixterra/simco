@@ -1,0 +1,20 @@
+{
+    "name": "simco/pqrsf",
+    "description": "Sistema de registro de PQRSF.",
+    "type": "project",
+    "license": "proprietary",
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "require": {
+        "vlucas/phpdotenv": "^5.6",
+        "phpmailer/phpmailer": "^6.11"
+    },
+    "config": {
+        "platform": {
+            "php": "8.2"
+        }
+    }
+}
