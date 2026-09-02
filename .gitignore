@@ -1,0 +1,170 @@
+# ============================================
+# SIMCO - Sistema de Registro PQRSF
+# ============================================
+
+# ============================================
+# Composer dependencies
+# ============================================
+/vendor/
+composer.phar
+# composer.lock SÍ se versiona: fija las versiones exactas que se instalan
+# en producción con `composer install --no-dev`.
+
+# ============================================
+# Environment variables (CRÍTICO - Nunca subir)
+# ============================================
+.env
+.env.local
+.env.production
+.env.*.local
+.env.backup
+
+# ============================================
+# IDE and editor directories
+# ============================================
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.project
+.settings/
+*.sublime-project
+*.sublime-workspace
+.phpstorm.meta.php
+_ide_helper.php
+
+# ============================================
+# OS generated files
+# ============================================
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ============================================
+# Log files
+# ============================================
+*.log
+logs/
+/app/logs/
+php_errors.log
+error.log
+debug.log
+access.log
+sql.log
+
+# ============================================
+# Temporary files
+# ============================================
+temp/
+tmp/
+/app/cache/
+/app/tmp/
+*.tmp
+
+# ============================================
+# Uploaded files (Anexos - Archivos de usuarios)
+# ============================================
+# NUNCA se versionan: son documentos que suben los usuarios en las PQRSF.
+# La aplicación crea la estructura AAAA/MM/DD por sí sola (FileUploadService),
+# así que no hace falta versionar ninguna carpeta.
+/public_html/Anexos/
+
+# ============================================
+# Node modules (Tailwind CSS)
+# ============================================
+node_modules/
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ============================================
+# Build files
+# ============================================
+/public_html/assets/css/*.map
+/resources/css/output.css.map
+/public_html/assets/js/*.min.js.map
+
+# ============================================
+# Cache and session files
+# ============================================
+/app/sessions/
+*.cache
+sessions/
+
+# ============================================
+# Backup files
+# ============================================
+*.bak
+*.backup
+*.old
+*.orig
+*_backup
+*_old
+*.sql.gz
+*.sql.bak
+backups/
+
+# ============================================
+# Database dumps (Nunca subir dumps reales)
+# ============================================
+*.sql
+dump.sql
+backup.sql
+*_dump.sql
+
+# ============================================
+# Production deployment files
+# ============================================
+# prepare-production.ps1 / .sh construyen aquí el paquete de producción.
+# Nunca se versiona: se regenera con cada release.
+build/
+
+simco-produccion.zip
+production.zip
+deploy.zip
+*.tar.gz
+*.tar
+temp-check/
+
+# ============================================
+# Test files
+# ============================================
+test-*.php
+*-test.php
+*.test.php
+/tests/tmp/
+phpunit.xml
+.phpunit.result.cache
+
+# ============================================
+# Security files (NUNCA subir credenciales)
+# ============================================
+*.pem
+*.key
+*.crt
+*.p12
+id_rsa
+id_rsa.pub
+ssh_config
+credentials.json
+secrets.json
+
+# ============================================
+# Documentation builds (opcional)
+# ============================================
+docs/_build/
+docs/.doctrees/
+
+# ============================================
+# Miscellaneous
+# ============================================
+.htpasswd
+.ftpconfig
+sftp-config.json
+deployment-config.json

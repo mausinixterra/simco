@@ -1,0 +1,34 @@
+# Credenciales: en Render se configuran como variables de entorno.
+.env
+.env.*
+!.env.example
+
+# Adjuntos de usuarios: nunca se hornean en la imagen.
+public_html/Anexos/
+
+# Se reconstruyen dentro de la imagen
+vendor/
+node_modules/
+build/
+
+# Control de versiones y herramientas
+.git/
+.gitignore
+.gitattributes
+.vscode/
+.idea/
+
+# Documentación y scripts que no se ejecutan en el contenedor
+*.md
+prepare-production.ps1
+prepare-production.sh
+verify-setup.ps1
+DEPLOYMENT-CHECKLIST.txt
+.production-ready
+
+# Ruido
+*.log
+*.zip
+*.tar.gz
+Thumbs.db
+desktop.ini
