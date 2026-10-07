@@ -19,7 +19,7 @@ class TextHelper
         $siglas = [
             'NIT', 'UCI', 'NEO', 'EPS', 'IPS', 'SOAT', 'ARL', 'AFP', 'CCF', 
             'RUT', 'DNI', 'RH', 'VIH', 'SIDA', 'SOS', 'POS', 
-            'S.A.S', 'S.A.S.', 'SAS', 'S.A.', 'S.A', 'SA', 'S A S', 'S A'
+            'S.A.S', 'S.A.S.', 'SAS', 'S.A.', 'S.A', 'SA', 'S A S', 'S A',
         ];
         
         // Convertir todo a minúsculas primero
@@ -41,5 +41,16 @@ class TextHelper
         }
         
         return $textoFormateado;
+    }
+
+    /**
+     * Formats a person or service name to proper case (multibyte-safe)
+     * 
+     * @param string $nombre El nombre a formatear
+     * @return string El nombre formateado
+     */
+    public static function formatearNombre(string $nombre): string
+    {
+        return mb_convert_case($nombre, MB_CASE_TITLE, 'UTF-8');
     }
 }

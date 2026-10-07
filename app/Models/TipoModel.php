@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Config\Database;
+use App\Core\Lang;
 use App\Helpers\TextHelper;
 use PDO;
 use stdClass;
@@ -44,10 +45,16 @@ class TipoModel
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
         
         // Formatear descripciones: Primera letra en mayúscula, resto en minúscula
+        // y traducir con el diccionario de catálogos si el idioma actual lo tiene
         foreach ($resultados as $resultado) {
-            $resultado->descripcion = TextHelper::formatearTextoTitulo($resultado->descripcion);
+            $resultado->descripcion = Lang::catalog($tabla, (string) $resultado->id, TextHelper::formatearTextoTitulo($resultado->descripcion));
         }
-        
+
+        // Si se tradujo una lista ordenada alfabéticamente, reordenarla en el idioma actual
+        if (Lang::hasCatalog($tabla) && in_array($orderBy, ['descripcion', $descripcionCampo], true)) {
+            usort($resultados, fn ($a, $b) => strnatcasecmp($a->descripcion, $b->descripcion));
+        }
+
         return $resultados;
     }
 }

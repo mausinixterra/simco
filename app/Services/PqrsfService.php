@@ -42,7 +42,7 @@ class PqrsfService
             if ($pqrsfId === false) {
                 return [
                     'success' => false,
-                    'message' => Lang::get('error_pqrsf_registration_failed')
+                    'message' => Lang::get('error_pqrsf_registration_failed'),
                 ];
             }
             
@@ -61,14 +61,14 @@ class PqrsfService
                 'success' => true,
                 'message' => Lang::get('success_pqrsf_registered'),
                 'pqrsfId' => $pqrsfId,
-                'emailSent' => $emailSent
+                'emailSent' => $emailSent,
             ];
             
         } catch (\Exception $e) {
             error_log('Error creating PQRSF: ' . $e->getMessage());
             return [
                 'success' => false,
-                'message' => Lang::get('error_pqrsf_registration_failed')
+                'message' => Lang::get('error_pqrsf_registration_failed'),
             ];
         }
     }

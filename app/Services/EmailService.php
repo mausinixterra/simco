@@ -32,13 +32,13 @@ class EmailService
         try {
             // Configuración del servidor SMTP
             $this->mailer->isSMTP();
-            $this->mailer->Host ='smtp.gmail.com';
+            $this->mailer->Host = $_ENV['MAIL_HOST'] ?? 'smtp.gmail.com';
             $this->mailer->SMTPAuth = true;
-            $this->mailer->Username = 'pqrsdf@clinicadeoccidente.com';
-            $this->mailer->Password = 'ecgz wvfw ilfe ampk';
+            $this->mailer->Username = $_ENV['MAIL_USERNAME'] ?? '';
+            $this->mailer->Password = $_ENV['MAIL_PASSWORD'] ?? '';
             
             // Configurar encriptación según el tipo
-            $encryption = 'tls';
+            $encryption = $_ENV['MAIL_ENCRYPTION'] ?? 'tls';
             if ($encryption === 'ssl') {
                 $this->mailer->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             } else {
@@ -48,8 +48,8 @@ class EmailService
             $this->mailer->Port = (int)($_ENV['MAIL_PORT'] ?? 587);
             
             // Configuración del remitente
-            $fromAddress = 'no-reply@clinicadeoccidente.com';
-            $fromName ="PQRSF - Sistema de manifestaciones Clínica de Occidente";
+            $fromAddress = $_ENV['MAIL_FROM_ADDRESS'] ?? 'noreply@simco.com';
+            $fromName = $_ENV['MAIL_FROM_NAME'] ?? 'SIMCO - Sistema de PQRSF';
             
             $this->mailer->setFrom($fromAddress, $fromName);
             $this->mailer->addReplyTo($fromAddress, 'No responder');

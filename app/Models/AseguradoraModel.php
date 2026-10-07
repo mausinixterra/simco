@@ -36,12 +36,12 @@ class AseguradoraModel
         $db = Database::getInstance();
         $stmt = $db->prepare($sql);
 
-        // Bind parameters to prevent SQL injection
-        $stmt->bindValue(':empresa_id', '01');
-        $stmt->bindValue(':tipo_tercero_id', 'NIT');
-        $stmt->bindValue(':estado', '1');
-        
-        $stmt->execute();
+        // Parámetros nombrados para evitar inyección SQL
+        $stmt->execute([
+            'empresa_id'      => '01',
+            'tipo_tercero_id' => 'NIT',
+            'estado'          => '1',
+        ]);
         
         $resultados = $stmt->fetchAll(PDO::FETCH_OBJ);
         

@@ -25,7 +25,7 @@ $errorMessage = $errorMessage ?? null;
 $debugMode = $_ENV['APP_DEBUG'] === 'true';
 ?>
 <!DOCTYPE html>
-<html lang="<?= htmlspecialchars($lang) ?>">
+<html lang="<?= htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -97,7 +97,7 @@ $debugMode = $_ENV['APP_DEBUG'] === 'true';
             <?php if ($debugMode && $errorMessage): ?>
             <div class="bg-red-50 dark:bg-red-900/30 border border-red-200 dark:border-red-700 rounded-lg p-4 mb-6 text-left">
                 <h3 class="text-sm font-semibold text-red-900 dark:text-red-300 mb-2">Información de Debug (Solo desarrollo):</h3>
-                <pre class="text-xs text-red-800 dark:text-red-300 overflow-x-auto whitespace-pre-wrap break-words"><?= htmlspecialchars($errorMessage) ?></pre>
+                <pre class="text-xs text-red-800 dark:text-red-300 overflow-x-auto whitespace-pre-wrap break-words"><?= htmlspecialchars($errorMessage, ENT_QUOTES, 'UTF-8') ?></pre>
             </div>
             <?php endif; ?>
 

@@ -60,7 +60,7 @@ class SatisfactionService
             if ($decodedId === false || !is_numeric($decodedId)) {
                 return [
                     'success' => false,
-                    'message' => Lang::get('error_satisfaction_invalid_id')
+                    'message' => Lang::get('error_satisfaction_invalid_id'),
                 ];
             }
             
@@ -73,7 +73,7 @@ class SatisfactionService
             if (!in_array($conformidad, ['si', 'no'])) {
                 return [
                     'success' => false,
-                    'message' => Lang::get('error_satisfaction_invalid_response')
+                    'message' => Lang::get('error_satisfaction_invalid_response'),
                 ];
             }
             
@@ -81,7 +81,7 @@ class SatisfactionService
             if ($conformidad === 'no' && strlen(trim($motivo)) < 10) {
                 return [
                     'success' => false,
-                    'message' => Lang::get('error_satisfaction_reason_required')
+                    'message' => Lang::get('error_satisfaction_reason_required'),
                 ];
             }
             
@@ -91,7 +91,7 @@ class SatisfactionService
             if (!$inserted) {
                 return [
                     'success' => false,
-                    'message' => Lang::get('error_satisfaction_save_failed')
+                    'message' => Lang::get('error_satisfaction_save_failed'),
                 ];
             }
             
@@ -101,14 +101,14 @@ class SatisfactionService
             return [
                 'success' => true,
                 'message' => Lang::get('success_satisfaction_registered'),
-                'emailSent' => $emailSent
+                'emailSent' => $emailSent,
             ];
             
         } catch (\Exception $e) {
             error_log('Error processing satisfaction response: ' . $e->getMessage());
             return [
                 'success' => false,
-                'message' => Lang::get('error_satisfaction_save_failed')
+                'message' => Lang::get('error_satisfaction_save_failed'),
             ];
         }
     }

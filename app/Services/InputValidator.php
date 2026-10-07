@@ -28,7 +28,7 @@ class InputValidator
         return [
             'valid'  => empty($errors),
             'data'   => $data,
-            'errors' => $errors
+            'errors' => $errors,
         ];
     }
     

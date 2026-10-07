@@ -1,9 +1,25 @@
-<?php use App\Core\Lang; ?>
+<?php
+use App\Core\Lang;
+
+/**
+ * Navbar compartido.
+ *
+ * Variables opcionales que la vista puede definir antes de incluirlo:
+ *   $navbarHomeUrl      URL del logo (por defecto '/')
+ *   $navbarShowLangMenu Mostrar el menú de idioma (por defecto true)
+ *   $navbarLangEsUrl    URL para cambiar a español (por defecto '?lang=es')
+ *   $navbarLangEnUrl    URL para cambiar a inglés (por defecto '?lang=en')
+ */
+$navbarHomeUrl      = $navbarHomeUrl      ?? '/';
+$navbarShowLangMenu = $navbarShowLangMenu ?? true;
+$navbarLangEsUrl    = $navbarLangEsUrl    ?? '?lang=es';
+$navbarLangEnUrl    = $navbarLangEnUrl    ?? '?lang=en';
+?>
 <nav class="bg-white dark:bg-gray-800 shadow">
     <div class="container mx-auto px-6 py-3 flex justify-end items-center space-x-4">
         <!-- Logo -->
         <div class="flex-grow">
-            <a href="/" class="flex items-center">
+            <a href="<?= htmlspecialchars($navbarHomeUrl, ENT_QUOTES, 'UTF-8') ?>" class="flex items-center">
                 <img src="/assets/img/logo_header_dark.png" alt="Logo" class="h-8 w-auto mr-3 block dark:hidden">
                 <img src="/assets/img/logo_header_light.png" alt="Logo" class="h-8 w-auto mr-3 hidden dark:block">
             </a>
@@ -20,6 +36,7 @@
                 </svg>
             </button>
 
+            <?php if ($navbarShowLangMenu): ?>
             <!-- Language Menu -->
             <div class="relative">
                 <button id="lang-menu-button" class="flex items-center text-gray-600 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 focus:outline-none transition duration-300 ease-in-out transform hover:scale-110 focus:scale-110 cursor-pointer">
@@ -28,14 +45,15 @@
                     </svg>
                 </button>
                 <div id="lang-menu" class="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-700 rounded-md shadow-lg py-1 z-20 hidden">
-                    <a href="?lang=es" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 <?=($_SESSION['lang']??'es')==='es'?'font-bold text-blue-600 dark:text-blue-400':''?>">
+                    <a href="<?= htmlspecialchars($navbarLangEsUrl, ENT_QUOTES, 'UTF-8') ?>" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 <?=($_SESSION['lang']??'es')==='es'?'font-bold text-blue-600 dark:text-blue-400':''?>">
                         <?=Lang::get('lang_es')?>
                     </a>
-                    <a href="?lang=en" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 <?=($_SESSION['lang']??'es')==='en'?'font-bold text-blue-600 dark:text-blue-400':''?>">
+                    <a href="<?= htmlspecialchars($navbarLangEnUrl, ENT_QUOTES, 'UTF-8') ?>" class="block px-4 py-2 text-sm text-gray-700 dark:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-600 <?=($_SESSION['lang']??'es')==='en'?'font-bold text-blue-600 dark:text-blue-400':''?>">
                         <?=Lang::get('lang_en')?>
                     </a>
                 </div>
             </div>
+            <?php endif; ?>
         </div>
     </div>
 </nav>

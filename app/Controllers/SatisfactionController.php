@@ -52,7 +52,7 @@ class SatisfactionController
             $this->renderView('satisfaction', [
                 'showError' => true,
                 'errorType' => 'no_connection',
-                'pqrsfData' => null
+                'pqrsfData' => null,
             ]);
             return;
         }
@@ -65,7 +65,7 @@ class SatisfactionController
             $this->renderView('satisfaction', [
                 'showError' => true,
                 'errorType' => 'not_found',
-                'pqrsfData' => null
+                'pqrsfData' => null,
             ]);
             return;
         }
@@ -75,7 +75,7 @@ class SatisfactionController
             'showError' => false,
             'errorType' => null,
             'pqrsfData' => $pqrsfData,
-            'encodedId' => $encodedId
+            'encodedId' => $encodedId,
         ]);
     }
 
@@ -109,7 +109,7 @@ class SatisfactionController
             'errorType' => null,
             'pqrsfData' => null,
             'showResult' => true,
-            'resultSuccess' => $isSuccess
+            'resultSuccess' => $isSuccess,
         ]);
     }
 

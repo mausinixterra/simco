@@ -21,7 +21,7 @@ $lang = $_SESSION['lang'] ?? $config['default_lang'];
 Lang::load($lang);
 ?>
 <!DOCTYPE html>
-<html lang="<?= htmlspecialchars($lang) ?>">
+<html lang="<?= htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">

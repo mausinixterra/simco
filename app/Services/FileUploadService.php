@@ -101,7 +101,7 @@ class FileUploadService
             'path' => $destination,
             'name' => $originalName,
             'filename' => $newFileName,
-            'directory' => $uploadDir . '/'
+            'directory' => $uploadDir . '/',
         ];
     }
     

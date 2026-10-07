@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace App\Models;
 
 use App\Config\Database;
+use App\Core\Lang;
 use PDO;
 use PDOException;
 
@@ -30,6 +31,7 @@ class SatisfactionModel
                         fp.tipo_documento || ' ' || fp.documento AS documentopaciente,
                         fp.nombres AS nombrepaciente,
                         fp.nombres_peticionario AS nombrepeticionario,
+                        fppe.id AS servicio_id,
                         fppe.nombre AS servicio
                     FROM
                         formulario_pqr fp
@@ -42,9 +44,15 @@ class SatisfactionModel
             $stmt = $db->prepare($query);
             $stmt->execute(['id' => $id]);
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            
-            return $result ?: false;
-            
+
+            if (!$result) {
+                return false;
+            }
+
+            $result['servicio'] = Lang::catalog('formulario_pqr_presento_evento', (string) $result['servicio_id'], $result['servicio']);
+
+            return $result;
+
         } catch (PDOException $e) {
             error_log('Error getting PQRSF data for satisfaction: ' . $e->getMessage());
             return false;
@@ -77,7 +85,7 @@ class SatisfactionModel
                 'motivo' => $motivo === '' ? null : $motivo,
                 'conformidad' => $conformidad,
                 'ip' => $ip,
-                'id' => $id
+                'id' => $id,
             ]);
             
             return $result;
@@ -86,16 +94,5 @@ class SatisfactionModel
             error_log('Error inserting satisfaction response: ' . $e->getMessage());
             return false;
         }
-    }
-    
-    /**
-     * Formats a name to proper case
-     * 
-     * @param string $nombre Name to format
-     * @return string Formatted name
-     */
-    public static function formatoNombre(string $nombre): string
-    {
-        return ucwords(strtolower($nombre));
     }
 }

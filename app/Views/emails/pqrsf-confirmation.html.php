@@ -1,5 +1,5 @@
 <?php use App\Core\Lang; ?><!DOCTYPE html>
-<html lang="<?php echo Lang::get('lang_es') === 'Español' ? 'es' : 'en'; ?>">
+<html lang="<?= htmlspecialchars($lang, ENT_QUOTES, 'UTF-8') ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -146,7 +146,7 @@
         </div>
         
         <div class="content">
-            <p class="greeting"><?= Lang::get('email_confirmation_greeting') ?>,<br><strong><?= htmlspecialchars($nombrePaciente) ?></strong></p>
+            <p class="greeting"><?= Lang::get('email_confirmation_greeting') ?>,<br><strong><?= htmlspecialchars($nombrePaciente, ENT_QUOTES, 'UTF-8') ?></strong></p>
             
             <p><strong><?= Lang::get('email_confirmation_intro') ?></strong></p>
             
@@ -160,14 +160,14 @@
                     <h3 style="color: #1e3a8a; margin-top: 0;"><?= Lang::get('email_radicado_number') ?></h3>
                     <span class="radicado"><?= $pqrsfId ?></span>
                 </p> -->
-                <p><strong><?= Lang::get('patient_full_name') ?>:</strong> <?= htmlspecialchars($nombrePaciente) ?></p>
+                <p><strong><?= Lang::get('patient_full_name') ?>:</strong> <?= htmlspecialchars($nombrePaciente, ENT_QUOTES, 'UTF-8') ?></p>
                 <p><strong><?= Lang::get('email_registration_date') ?>:</strong> <?= $fecha ?></p>
-                <p><strong><?= Lang::get('email_applicant_type') ?>:</strong> <?= htmlspecialchars($tipoSolicitante) ?></p>
+                <p><strong><?= Lang::get('email_applicant_type') ?>:</strong> <?= htmlspecialchars($tipoSolicitante, ENT_QUOTES, 'UTF-8') ?></p>
             </div>
             
             <div class="info-box">
                 <p><strong><?= Lang::get('email_manifestation_details') ?>:</strong></p>
-                <p style="margin-top: 10px; line-height: 1.8;"><?= nl2br(htmlspecialchars($observacion)) ?></p>
+                <p style="margin-top: 10px; line-height: 1.8;"><?= nl2br(htmlspecialchars($observacion, ENT_QUOTES, 'UTF-8')) ?></p>
             </div>
             
             <?php if (!empty($attachedFiles)): ?>
@@ -175,104 +175,32 @@
                 <p><strong><?= Lang::get('file_list_title') ?></strong></p>
                 <ul style="margin: 10px 0; padding-left: 20px;">
                     <?php foreach ($attachedFiles as $file): ?>
-                    <li><?= htmlspecialchars($file['name'] ?? basename($file['path'])) ?></li>
+                    <li><?= htmlspecialchars($file['name'] ?? basename($file['path']), ENT_QUOTES, 'UTF-8') ?></li>
                     <?php endforeach; ?>
                 </ul>
                 <p style="font-size: 12px; color: #6b7280;">
-                    <?php 
-                    if (Lang::get('lang_es') === 'Español') {
-                        echo 'Los archivos adjuntos han sido incluidos en este correo para su referencia.';
-                    } else {
-                        echo 'The attached files have been included in this email for your reference.';
-                    }
-                    ?>
+                    <?= Lang::get('email_attachments_included') ?>
                 </p>
             </div>
             <?php endif; ?>
             
             <div class="important-notice">
-                <strong><?php 
-                if (Lang::get('lang_es') === 'Español') {
-                    echo 'SU SOLICITUD SERÁ RESPONDIDA DE ACUERDO A LO ESTABLECIDO EN LA LEY 1755 DE 2015';
-                } else {
-                    echo 'YOUR REQUEST WILL BE ANSWERED IN ACCORDANCE WITH LAW 1755 OF 2015';
-                }
-                ?></strong>
+                <strong><?= Lang::get('email_law_1755_notice') ?></strong>
             </div>
             
             <div class="contact-info">
-                <h3><?php 
-                if (Lang::get('lang_es') === 'Español') {
-                    echo 'Canales de Atención';
-                } else {
-                    echo 'Contact Channels';
-                }
-                ?></h3>
-                <p><strong><?php 
-                if (Lang::get('lang_es') === 'Español') {
-                    echo 'Atención telefónica:';
-                } else {
-                    echo 'Phone Support:';
-                }
-                ?></strong> 6603000 Ext. 753<br>
-                <strong><?php 
-                if (Lang::get('lang_es') === 'Español') {
-                    echo 'Horario:';
-                } else {
-                    echo 'Hours:';
-                }
-                ?></strong> <?php 
-                if (Lang::get('lang_es') === 'Español') {
-                    echo 'Lunes a sábado de 8:00am a 5:00pm<br>Domingos y festivos de 7:00am a 4:00pm';
-                } else {
-                    echo 'Monday to Saturday from 8:00am to 5:00pm<br>Sundays and holidays from 7:00am to 4:00pm';
-                }
-                ?></p>
-                <p><strong><?php 
-                if (Lang::get('lang_es') === 'Español') {
-                    echo 'Línea WhatsApp:';
-                } else {
-                    echo 'WhatsApp:';
-                }
-                ?></strong><a href="https://wa.me/573217228389" target="_blank" rel="noopener noreferrer" class="cursor-pointer text-blue-600 no-underline hover:underline"> 321 722 8389 </a><br><?php 
-                if (Lang::get('lang_es') === 'Español') {
-                    echo 'Lunes a domingo';
-                } else {
-                    echo 'Monday to Sunday';
-                }
-                ?></p>
-                <p><strong><?php 
-                if (Lang::get('lang_es') === 'Español') {
-                    echo 'Web:';
-                } else {
-                    echo 'Website:';
-                }
-                ?></strong> <a href="https://www.clinicadeoccidente.com" target="_blank" rel="noopener noreferrer" class="cursor-pointer text-blue-600 no-underline hover:underline">www.clinicadeoccidente.com</a></p>
+                <h3><?= Lang::get('email_contact_channels_title') ?></h3>
+                <p><strong><?= Lang::get('email_contact_phone_label') ?></strong> 6603000 Ext. 753<br>
+                <strong><?= Lang::get('email_contact_hours_label') ?></strong> <?= Lang::get('email_contact_hours_weekday') . '<br>' . Lang::get('email_contact_hours_weekend') ?></p>
+                <p><strong><?= Lang::get('email_contact_whatsapp_label') ?></strong><a href="https://wa.me/573217228389" target="_blank" rel="noopener noreferrer" class="cursor-pointer text-blue-600 no-underline hover:underline"> 321 722 8389 </a><br><?= Lang::get('email_contact_whatsapp_hours') ?></p>
+                <p><strong><?= Lang::get('email_contact_web_label') ?></strong> <a href="https://www.clinicadeoccidente.com" target="_blank" rel="noopener noreferrer" class="cursor-pointer text-blue-600 no-underline hover:underline">www.clinicadeoccidente.com</a></p>
             </div>
         </div>
         
         <div class="footer">
-            <strong><?php 
-            if (Lang::get('lang_es') === 'Español') {
-                echo 'Este mensaje es generado automáticamente, por favor no lo responda.';
-            } else {
-                echo 'This message is automatically generated, please do not reply.';
-            }
-            ?></strong><br>
-            <?php 
-            if (Lang::get('lang_es') === 'Español') {
-                echo 'Frente a cualquier solicitud, le invitamos hacer uso de los canales habilitados por la Clínica de Occidente.';
-            } else {
-                echo 'For any request, we invite you to use the channels enabled by Clínica de Occidente.';
-            }
-            ?><br>
-            <span style="margin-top: 15px;">&copy; <?= date('Y') ?> Clínica de Occidente - <?php 
-            if (Lang::get('lang_es') === 'Español') {
-                echo 'Todos los derechos reservados';
-            } else {
-                echo 'All rights reserved';
-            }
-            ?></span>
+            <strong><?= Lang::get('email_auto_message_no_reply') ?></strong><br>
+            <?= Lang::get('email_use_official_channels') ?><br>
+            <span style="margin-top: 15px;">&copy; <?= date('Y') ?> Clínica de Occidente - <?= Lang::get('email_all_rights_reserved') ?></span>
         </div>
     </div>
 </body>
